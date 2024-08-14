@@ -16,6 +16,7 @@ resources:
                 catalog: ${var.catalog}
                 schema_name: ${var.schema_name}
                 source_table_name: ${var.source_table_name}
+                source_data_path: ${var.source_data_path}
           job_cluster_key: Job_cluster
           libraries:
             - pypi:
@@ -31,6 +32,9 @@ resources:
                 schema_name: ${var.schema_name}
                 source_table_name: ${var.source_table_name}
                 endpoint_name: ${var.endpoint_name}
+                pipeline_type: ${var.pipeline_type}
+                primary_key: ${var.primary_key}
+                embedding_source_column: ${var.embedding_source_column}
           job_cluster_key: Job_cluster
           libraries:
             - pypi:

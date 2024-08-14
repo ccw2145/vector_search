@@ -21,6 +21,12 @@ variables:
     default: "vector_search_demo_endpoint"
   index_name:
     default: "wiki_articles_cw_index"
+  pipeline_type: 
+    default: "TRIGGERED"
+  primary_key:
+    default: "id"
+  embedding_source_column
+    default: "text"
   
 targets:
   # The 'dev' target, for development purposes. This target is the default.
