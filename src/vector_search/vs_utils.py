@@ -34,8 +34,8 @@ def create_vector_index(
     embedding_model_endpoint: str
 ) -> None:
     """Create a vector search index based on the source table."""
-    try:
-        vsc.create_delta_sync_index(
+    try: 
+        vsc.create_delta_sync_index_and_wait(
             endpoint_name=endpoint_name,
             index_name=index_name,
             source_table_name=table_name,
@@ -59,5 +59,6 @@ def update_vector_index(
     try:
         index = vsc.get_index(endpoint_name, index_name)
         index.sync()
+        index.wait_until_ready()
     except Exception as e:
         raise e
