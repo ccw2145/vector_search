@@ -1,0 +1,52 @@
+# The main job for vector_search.
+resources:
+  jobs:
+    vector_search_job:
+      name: vector_search_deploy_job_${bundle.target}
+
+      email_notifications:
+        on_failure:
+          - cindy.wu@databricks.com
+
+      tasks:
+        - task_key: data_etl
+          notebook_task:
+            notebook_path: ../src/prep_data.ipynb
+            base_parameters:
+                catalog: ${var.catalog}
+                schema_name: ${var.schema_name}
+                source_table_name: ${var.source_table_name}
+          job_cluster_key: Job_cluster
+          libraries:
+            - pypi:
+                package: tiktoken
+
+        - task_key: deploy_task
+          depends_on:
+            - task_key: data_etl
+          notebook_task:
+            notebook_path: ../src/deploy_vector_index.ipynb
+            base_parameters:
+                catalog: ${var.catalog}
+                schema_name: ${var.schema_name}
+                source_table_name: ${var.source_table_name}
+                endpoint_name: ${var.endpoint_name}
+          job_cluster_key: Job_cluster
+          libraries:
+            - pypi:
+                package: databricks-vectorsearch
+
+
+      job_clusters:
+        - job_cluster_key: Job_cluster
+          new_cluster:
+              cluster_name: ""
+              spark_version: 14.3.x-scala2.12
+              aws_attributes:
+                availability: SPOT_WITH_FALLBACK
+                zone_id: us-west-2a
+              node_type_id: i3.xlarge
+              enable_elastic_disk: false
+              data_security_mode: SINGLE_USER
+              runtime_engine: STANDARD
+              num_workers: 1
