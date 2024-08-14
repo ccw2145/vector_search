@@ -25,7 +25,7 @@ variables:
     default: "TRIGGERED"
   primary_key:
     default: "id"
-  embedding_source_column
+  embedding_source_column:
     default: "text"
   
 targets:

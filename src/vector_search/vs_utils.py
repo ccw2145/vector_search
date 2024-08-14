@@ -31,7 +31,10 @@ def create_vector_index(
     table_name: str,
     endpoint_name: str,
     index_name: str,
-    embedding_model_endpoint: str
+    embedding_model_endpoint: str,
+    pipeline_type: str,
+    primary_key: str,
+    embedding_source_column: str
 ) -> None:
     """Create a vector search index based on the source table."""
     try: 
