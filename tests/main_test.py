@@ -1,4 +1,4 @@
-from vector_search.utils import get_taxis, get_spark
+from vector_search.vs_utils import get_taxis, get_spark
 
 
 def test_main():
