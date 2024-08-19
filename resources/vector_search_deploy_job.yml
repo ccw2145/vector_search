@@ -11,12 +11,14 @@ resources:
       tasks:
         - task_key: data_etl
           notebook_task:
-            notebook_path: ../src/prep_data.ipynb
+          
+            notebook_path: ../src/prep_data.py
             base_parameters:
                 catalog: ${var.catalog}
                 schema_name: ${var.schema_name}
                 source_table_name: ${var.source_table_name}
                 source_data_path: ${var.source_data_path}
+                chunk_size: ${var.chunk_size}
           job_cluster_key: Job_cluster
           libraries:
             - pypi:
@@ -26,7 +28,7 @@ resources:
           depends_on:
             - task_key: data_etl
           notebook_task:
-            notebook_path: ../src/deploy_vector_index.ipynb
+            notebook_path: ../src/deploy_vector_index.py
             base_parameters:
                 catalog: ${var.catalog}
                 schema_name: ${var.schema_name}

@@ -53,12 +53,12 @@ def create_vector_index(
         else:
             raise e
 
-def update_vector_index(
+def sync_vector_index(
     vsc: VectorSearchClient,
     endpoint_name: str,
     index_name: str
 ) -> None:
-    """Update a vector search index with delta sync"""
+    """Sync a vector search index with delta sync"""
     try:
         index = vsc.get_index(endpoint_name, index_name)
         index.sync()

@@ -27,7 +27,8 @@ variables:
     default: "id"
   embedding_source_column:
     default: "text"
-  
+  chunk_size: 
+    default: 500
 targets:
   # The 'dev' target, for development purposes. This target is the default.
   dev:
